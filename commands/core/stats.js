@@ -1,9 +1,11 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
     name: 'statistics',
-    aliases: [stats],
+    aliases: ['stats'],
     utilisation: '{prefix}statistics',
 
-    execute(client, message) {
+    execute(client, message,args) {
         const ToTalSeconds = (client.uptime / 1000);
         const Days = Math.floor(ToTalSeconds / 86400);
         const Hours = Math.floor(ToTalSeconds / 3600);
@@ -18,13 +20,13 @@ module.exports = {
         const Os = require('os');
         const OsHostName = Os.hostname();
         const SystemPing = Math.round(client.ws.ping);
-        const exampleEmbed = new Discord.MessageEmbed()
+        const exampleEmbed = new MessageEmbed()
             .setColor('#b700ff')
             .setTitle("Bot's Live Status")
             .addField(" \u200B ", "**Bot Uptime** : ` " + `${Uptime}` + " `")
             .addField(" \u200B ", "** Bot's Hot Name** :  ` " + OsHostName + " `")
-            .addField(" \u200B ", "**Bot Current Version** : ` " + BotVersion + " `")
-            .addField(" \u200B ", "**Global Bot Prefix** : ` " + prefix + " `")
+//            .addField(" \u200B ", "**Bot Current Version** : ` " + BotVersion + " `")
+            .addField(" \u200B ", "**Global Bot Prefix** : ` " + ">" + " `")
             .addField(" \u200B ", "**CPU Usage** :  ` " + RamUsage + "Mb `")
             .addField(" \u200B ", "**Memory Usage** :  ` " + MemoryUsed + "Mb `")
             .addField(" \u200B ", "**Bot Platform** :  ` " + BotPlatform + " `")
@@ -32,6 +34,6 @@ module.exports = {
             .addField(" \u200B ", "**Channels** : ` " + `${client.channels.cache.size}` + " `")
             .addField(" \u200B ", "**Servers** : ` " + `${client.guilds.cache.size}` + " `")
             .addField(" \u200B ", "**Users** : ` " + `${client.users.cache.size}` + " `")
-        message.channel.send(exampleEmbed);
+        message.channel.send({ embeds: [exampleEmbed] });
     },
 };
